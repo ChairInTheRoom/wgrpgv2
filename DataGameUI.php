@@ -77,12 +77,14 @@ class DataGameUI{
 		}
 			
 		// if initiated combat from an event
-		if($_SESSION['objRPGCharacter']->getCombat()["EnemyTeam"] != null && !isset($_SESSION['objCombat'])){
-			$_SESSION['objCombat'] = new RPGCombat($_SESSION['objRPGCharacter']->getParty(), $_SESSION['objRPGCharacter']->getCombat()["EnemyTeam"], $_SESSION['objRPGCharacter']->getCombat()["FirstTurn"]);
-			$_SESSION['objCombat']->initiateCombat();
-			$_SESSION['objRPGCharacter']->setStateID($arrStateValues['Combat']);
+		if($_SESSION['objRPGCharacter']->getCombat() != null) {
+			if($_SESSION['objRPGCharacter']->getCombat()["EnemyTeam"] != null && !isset($_SESSION['objCombat'])){
+				$_SESSION['objCombat'] = new RPGCombat($_SESSION['objRPGCharacter']->getParty(), $_SESSION['objRPGCharacter']->getCombat()["EnemyTeam"], $_SESSION['objRPGCharacter']->getCombat()["FirstTurn"]);
+				$_SESSION['objCombat']->initiateCombat();
+				$_SESSION['objRPGCharacter']->setStateID($arrStateValues['Combat']);
+			}
 		}
-
+		
 		// enable/disable menus and such according to state we're in
 		switch($arrStateNames[$_SESSION['objRPGCharacter']->getStateID()]){
 			case "Tutorial":

@@ -19,12 +19,12 @@
 			if($objShop->getItemPrice($_POST['itemID'][$i]) == $_POST['price'][$i]){
 				$intPurchasePrice += $_POST['price'][$i] * $_POST['quantity'][$i];
 				$tmpItem = new RPGItem($_POST['itemID'][$i]);
-				if(isset($_POST['size'][$i]) && in_array($_POST['size'][$i], $arrClothingSizes)){
+				//if(isset($_POST['size'][$i]) && in_array($_POST['size'][$i], $arrClothingSizes)){
 					$tmpItem->setSize($_POST['size'][$i]);
-				}
-				else{
-					$_SESSION['strShopError'] = '<b>Error:</b> Invalid size specified for this item.';
-				}
+				//}
+				//else{
+				//	$_SESSION['strShopError'] = '<b>Error:</b> Invalid size specified for this item.';
+				//}
 				$tmpItem->setQuantity($_POST['quantity'][$i]);
 				$arrItemsPurchased[] = $tmpItem;
 			}

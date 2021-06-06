@@ -1286,7 +1286,7 @@ class RPGCharacter{
 	public function reviveCharacter($intWeightGain = 0, $intEventID = NULL){
 		global $arrStateValues;
 		$this->setCurrentHP($this->getModifiedMaxHP());
-		$this->setWeight($this->getWeight() + $intWeightGain);
+		$this->setWeight($this->getWeight() + floatval($intWeightGain));
 		$this->setCurrentHunger($this->getStats()->getBaseStats()['intMaxHunger']);
 		if($intWeightGain > 0){
 			$this->setReviveText("You awake in your bed feeling heavier than before...");
