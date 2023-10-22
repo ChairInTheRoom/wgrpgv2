@@ -546,7 +546,7 @@ CREATE TABLE IF NOT EXISTS `tblcharacteritemxr` (
   `intItemInstanceID` int(11) NOT NULL AUTO_INCREMENT,
   `intRPGCharacterID` int(11) NOT NULL,
   `intItemID` int(11) NOT NULL,
-  `intCaloriesRemaining` int(11) DEFAULT NULL,
+  `intCaloriesRemaining` int(11) DEFAULT '0',
   `blnDigesting` tinyint(4) NOT NULL DEFAULT '0',
   `blnEquipped` tinyint(4) NOT NULL DEFAULT '0',
   `strSize` enum('XS','S','M','L','XL','XXL','XXXL','XXXXL','Stretch') DEFAULT NULL,
