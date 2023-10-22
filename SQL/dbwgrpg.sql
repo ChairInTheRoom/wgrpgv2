@@ -2329,7 +2329,7 @@ CREATE TABLE IF NOT EXISTS `tblrpgcharacter` (
   `intExperience` int(11) NOT NULL DEFAULT '0',
   `intCurrentHP` int(11) NOT NULL DEFAULT '10',
   `intStatPoints` int(11) NOT NULL DEFAULT '0',
-  `intGold` int(11) NOT NULL,
+  `intGold` int(11) NOT NULL DEFAULT '0',
   `blnActivated` tinyint(1) NOT NULL DEFAULT '1',
   `dtmCreatedOn` datetime NOT NULL,
   `strCreatedBy` varchar(45) NOT NULL,
