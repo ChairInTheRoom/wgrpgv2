@@ -17,13 +17,19 @@
 		}
 		
 		public function query($strSQL){
-			$rsResult = $this->_objDB->query($strSQL);
-			if ($rsResult === false){
-				return "Error querying database.";
+			try {
+				$rsResult = $this->_objDB->query($strSQL);
+				if ($rsResult === false){
+					return "Error querying database.";
+				}
+				else{
+					return $rsResult;
+				}
 			}
-			else{
-				return $rsResult;
+			catch(PDOException $e) {
+				// print "Query Error: " . $e->getMessage() . "<br/>";
 			}
+			
 		}
 		
 		public function quote($strSQL){

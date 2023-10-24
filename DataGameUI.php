@@ -24,10 +24,9 @@ class DataGameUI{
 		$objEvent = $_SESSION['objRPGCharacter']->getEvent();
 		$blnEndOfEvent = $objEvent->checkEndOfEvent();
 		$objXML = new RPGXMLReader($objEvent->getXML());
-		
+
 		// check if event conditions satisfied
-		if($_SESSION['objRPGCharacter']->getTownID() != 1 && $objXML && $objXML->getPrecondition()){
-			
+		if($_SESSION['objRPGCharacter']->getTownID() !== 1 && $objXML && $objXML->getPrecondition()){
 			$blnConditionsPassed = false;
 			foreach($objXML->getPrecondition() as $key => $value){
 				if (!DialogConditionFactory::evaluateCondition($value)){
@@ -37,7 +36,7 @@ class DataGameUI{
 					$blnConditionsPassed = true;
 				}
 			}
-			
+
 			// show standstill if conditions failed
 			if(!$blnConditionsPassed){
 				$objEvent = $_SESSION['objRPGCharacter']->getCurrentFloor()->getStandstill($_SESSION['objRPGCharacter']->getRPGCharacterID());
@@ -48,7 +47,7 @@ class DataGameUI{
 		}
 		
 		// handle social link inside current event if one exists
-		if(!$blnEndOfEvent && $objEvent->getNPCID() != null && $objEvent->getConversationLevel() != null){
+		if(!$blnEndOfEvent && $objEvent->getNPCID() !== null && $objEvent->getConversationLevel() !== null){
 			// first conversation with NPC
 			if($objEvent->getConversationLevel() == 0 && !isset($_SESSION['objRelationship']) && !$objEvent->hasViewedEvent()){
 				$_SESSION['objRelationship'] = new RPGRelationship($objEvent->getNPCID(), $_SESSION['objRPGCharacter']->getRPGCharacterID(), true);
@@ -58,16 +57,16 @@ class DataGameUI{
 			}
 			
 			// if this conversation level is too high, show standstill
-			if($objEvent->getConversationLevel() != null && (($_SESSION['objRelationship']->getConversationLevel() != null && $objEvent->getConversationLevel() > $_SESSION['objRelationship']->getConversationLevel() + 1) || $_SESSION['objRelationship']->getConversationLevel() == null)){
+			if($objEvent->getConversationLevel() !== null && (($_SESSION['objRelationship']->getConversationLevel() !== null && $objEvent->getConversationLevel() > $_SESSION['objRelationship']->getConversationLevel() + 1) || $_SESSION['objRelationship']->getConversationLevel() == null)){
 				$objEvent = $_SESSION['objRPGCharacter']->getCurrentFloor()->getStandstill($_SESSION['objRPGCharacter']->getRPGCharacterID());
 				$_SESSION['objRPGCharacter']->setEvent($objEvent);
 				$blnEndOfEvent = true;
 				unset($_SESSION['objRelationship']);
 			}
 		}
-		
+
 		// increment conversation level of social link within current event
-		if($blnEndOfEvent && isset($_SESSION['objRelationship']) && $objEvent->getNPCID() != null && $objEvent->getConversationLevel() != null){
+		if($blnEndOfEvent && isset($_SESSION['objRelationship']) && $objEvent->getNPCID() !== null && $objEvent->getConversationLevel() !== null){
 			// prevent incrementing convo level if the one in the event is less than your current (allows for revisiting convos)
 			if($objEvent->getConversationLevel() > $_SESSION['objRelationship']->getConversationLevel()){
 				$_SESSION['objRelationship']->incrementConversationLevel();
@@ -75,10 +74,9 @@ class DataGameUI{
 			$_SESSION['objRelationship']->save();
 			$_SESSION['objRPGCharacter']->setRelationship($_SESSION['objRelationship']);
 		}
-			
 		// if initiated combat from an event
-		if($_SESSION['objRPGCharacter']->getCombat() != null) {
-			if($_SESSION['objRPGCharacter']->getCombat()["EnemyTeam"] != null && !isset($_SESSION['objCombat'])){
+		if($_SESSION['objRPGCharacter']->getCombat() !== null) {
+			if($_SESSION['objRPGCharacter']->getCombat()["EnemyTeam"] !== null && !isset($_SESSION['objCombat'])){
 				$_SESSION['objCombat'] = new RPGCombat($_SESSION['objRPGCharacter']->getParty(), $_SESSION['objRPGCharacter']->getCombat()["EnemyTeam"], $_SESSION['objRPGCharacter']->getCombat()["FirstTurn"]);
 				$_SESSION['objCombat']->initiateCombat();
 				$_SESSION['objRPGCharacter']->setStateID($arrStateValues['Combat']);
@@ -98,7 +96,7 @@ class DataGameUI{
 				$_SESSION['objUISettings']->setNavigationFrame('Compass');
 				break;
 			case "Event":
-				if((($objXML->getEventType() == "Forced Event") && !$blnEndOfEvent) || ($objEvent->getEventNodeID() != 0 && !$blnEndOfEvent)){
+				if((($objXML->getEventType() == "Forced Event") && !$blnEndOfEvent) || ($objEvent->getEventNodeID() !== 0 && !$blnEndOfEvent)){
 					$_SESSION['objUISettings']->setDisableTraversal(true);
 					$_SESSION['objUISettings']->setDisableInv(true);
 					$_SESSION['objUISettings']->setDisableStats(true);
