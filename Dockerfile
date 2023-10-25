@@ -1,5 +1,5 @@
 FROM ubuntu:22.04
-RUN apt-get update && apt-get upgrade
+RUN apt-get update && apt-get upgrade -y
 RUN apt-get install -y curl git net-tools
 WORKDIR /app
 RUN curl -L https://sourceforge.net/projects/xampp/files/XAMPP%20Linux/8.2.4/xampp-linux-x64-8.2.4-0-installer.run/download > installer.run
