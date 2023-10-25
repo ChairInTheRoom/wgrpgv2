@@ -273,6 +273,10 @@ class RPGItem{
 	}
 	
 	public function getCalories(){
+		if ($this->_intCalories == null) {
+			return 0;
+		}
+		
 		return $this->_intCalories;
 	}
 	
