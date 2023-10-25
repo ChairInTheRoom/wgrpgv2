@@ -1,3 +1,4 @@
+# WGRPG (Turris Puesco)
 
 
 ## Installation (Docker)
@@ -15,7 +16,7 @@ This should largely eliminate the "well, it works on my machine" problem. If you
 3. On Windows, click on / run "~run_container.bat"
     * The command inside of the script will run just as well on Linux and MacOS; Just copy the contents of the file and run it in your terminal.
 
-That's it! The game will be up at http://localhost:8401/wgrpg.
+That's it! The game will be up at http://localhost:8401/wgrpg. The first time you run the container it will take a while downloading the files it needs. Running it after will be very quick. Closing the terminal won't close the game. To actually stop the container, click on / run "~stop_container.bat".
 
 ## Installation (Manual)
 
