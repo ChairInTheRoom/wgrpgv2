@@ -598,21 +598,28 @@ class RPGCharacter{
 	}
 	
 	public function giveItem($intItemID, $strClothingSize = null, $blnUniqueGift = false){
-		global $arrClothingSizes;
-		$blnGiveItem = $this->checkGiveItem($intItemID, $blnUniqueGift);
-		if($blnGiveItem){
-			if($strClothingSize == null){
-				$strClothingSize = array_search(getClosest($this->getBMI(), array_values($arrClothingSizes)), $arrClothingSizes);
+		try {
+			global $arrClothingSizes;
+			$blnGiveItem = $this->checkGiveItem($intItemID, $blnUniqueGift);
+			if($blnGiveItem){
+				if($strClothingSize == null){
+					$strClothingSize = array_search(getClosest($this->getBMI(), array_values($arrClothingSizes)), $arrClothingSizes);
+				}
+				$objDB = new Database();
+				$objItem = new RPGItem($intItemID);
+				$strSQL = "INSERT INTO tblcharacteritemxr
+								(intRPGCharacterID, intItemID, intCaloriesRemaining, strSize, dtmDateAdded)
+							VALUES
+								(" . $objDB->quote($this->getRPGCharacterID()) . ", " . $objDB->quote($intItemID) . ", " . $objDB->quote($objItem->getCalories()) . ", " . $objDB->quote($strClothingSize) . ", NOW())";
+				$objDB->query($strSQL);
+				return $objDB->lastInsertID();
 			}
-			$objDB = new Database();
-			$objItem = new RPGItem($intItemID);
-			$strSQL = "INSERT INTO tblcharacteritemxr
-							(intRPGCharacterID, intItemID, intCaloriesRemaining, strSize, dtmDateAdded)
-						VALUES
-							(" . $objDB->quote($this->getRPGCharacterID()) . ", " . $objDB->quote($intItemID) . ", " . $objDB->quote($objItem->getCalories()) . ", " . $objDB->quote($strClothingSize) . ", NOW())";
-			$objDB->query($strSQL);
-			return $objDB->lastInsertID();
 		}
+		catch (Exception $e) {
+			echo 'Caught exception: ',  $e->getMessage(), "\n";
+			echo 'Stack trace: ', print_r($e->getTrace(), true);
+		}
+		
 	}
 	
 	public function giveItemMulti($intItemID, $intAmount, $blnUniqueGift = false){
