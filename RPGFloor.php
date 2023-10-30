@@ -7,14 +7,6 @@ include_once "Maze.php";
 include_once "RPGNPC.php";
 include_once "RPGEnemyTeam.php";
 
-function debug_to_console($data) {
-    $output = $data;
-    if (is_array($output))
-        $output = implode(',', $output);
-
-    echo "<script>console.log('Debug Objects: " . $output . "' );</script>";
-}
-
 class RPGFloor{
 
 	private $_intFloorID;
@@ -67,7 +59,6 @@ class RPGFloor{
 	}
 	
 	public function setApplicableEvents($intRPGCharacterID){
-		debug_to_console('hi there...');
 		$objDB = new Database();
 		$strSQL = "SELECT intEventID, intOccurrenceRating, intCountPerFloor
 					FROM tblflooreventxr
@@ -210,7 +201,6 @@ class RPGFloor{
 	}
 	
 	public function getStandstill($intRPGCharacterID){
-		debug_to_console($this->_intFloorID);
 		$objDB = new Database();
 		$strSQL = "SELECT intEventID
 					FROM tblevent
@@ -227,7 +217,6 @@ class RPGFloor{
 										AND blnRepeating = 0)";
 		$rsResult = $objDB->query($strSQL);
 		$arrRow = $rsResult->fetch(PDO::FETCH_ASSOC);
-		debug_to_console($arrRow['intEventID']);
 		$objEvent = new RPGEvent($arrRow['intEventID'], $intRPGCharacterID);
 		return $objEvent;
 	}
