@@ -33,7 +33,7 @@ class DisplayEventWindow{
 					
 					$intCounter = 0;
 					$objEvent = $_SESSION['objRPGCharacter']->getEvent();
-					
+
 					$objXML = new RPGXMLReader($objEvent->getXML());
 					foreach($objXML->getEventTextList($objEvent->getEventNodeID()) as $key => $value){
 						if(($objXML->hasEventTextPrecondition($objEvent->getEventNodeID(), $intCounter) == true && DialogConditionFactory::evaluateCondition($objXML->getEventTextPrecondition($objEvent->getEventNodeID(), $intCounter)) == true)

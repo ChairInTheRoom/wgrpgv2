@@ -57,7 +57,13 @@ class DataGameUI{
 			}
 			
 			// if this conversation level is too high, show standstill
-			if($objEvent->getConversationLevel() !== null && (($_SESSION['objRelationship']->getConversationLevel() !== null && $objEvent->getConversationLevel() > $_SESSION['objRelationship']->getConversationLevel() + 1) || $_SESSION['objRelationship']->getConversationLevel() == null)){
+			if(!is_null($objEvent->getConversationLevel()) && ((!is_null($_SESSION['objRelationship']->getConversationLevel()) && $objEvent->getConversationLevel() > $_SESSION['objRelationship']->getConversationLevel() + 1) || is_null($_SESSION['objRelationship']->getConversationLevel()))){
+				debug_to_console('conver level too high');
+				debug_to_console($objEvent->getConversationLevel() !== null);
+				debug_to_console(($_SESSION['objRelationship']->getConversationLevel() !== null && $objEvent->getConversationLevel() > $_SESSION['objRelationship']->getConversationLevel() + 1));
+				debug_to_console(is_null($_SESSION['objRelationship']->getConversationLevel()));
+				debug_to_console('current level: ' . $_SESSION['objRelationship']->getConversationLevel());
+				debug_to_console('required level: ' . $objEvent->getConversationLevel());
 				$objEvent = $_SESSION['objRPGCharacter']->getCurrentFloor()->getStandstill($_SESSION['objRPGCharacter']->getRPGCharacterID());
 				$_SESSION['objRPGCharacter']->setEvent($objEvent);
 				$blnEndOfEvent = true;
